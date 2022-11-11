@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "FKrOtDh4rljfpMx9mzwKDMJMZlG72oqeHUm7d+eZ3vlnDDRt1crfWjvFKaZVKkAK2zoUfCLxH4tMaLYPOqLqrw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Christopher\\source\\repos\\Projekt\\Projekt\\Projekt.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Christopher\\.nuget\\packages\\fontawesome.sharp\\6.1.1\\fontawesome.sharp.6.1.1.nupkg.sha512",
+    "C:\\Users\\Christopher\\.nuget\\packages\\wpfanimatedgif\\2.0.2\\wpfanimatedgif.2.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

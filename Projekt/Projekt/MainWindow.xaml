@@ -1,0 +1,401 @@
+﻿<Window x:Class="Projekt.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        xmlns:local="clr-namespace:Projekt" xmlns:views="clr-namespace:Projekt.Views"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        x:Name="window"
+        WindowStyle="SingleBorderWindow"
+        Background="{StaticResource LightGray}"
+        Height="450"
+        Width="800">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="40"
+                      UseAeroCaptionButtons="False"/>
+    </WindowChrome.WindowChrome>
+
+    <Border>
+        <Border.Style>
+            <Style TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <!-- Add to avoid border disappearing when window is maximised -->
+                    <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                 Value="Maximized">
+                        <Setter Property="Margin" Value="7"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                 Value="Normal">
+                        <Setter Property="Margin" Value="0"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+
+            </Grid.RowDefinitions>
+
+            <Grid Margin="50 40 0 0"
+                  Width="750">
+
+            </Grid>
+            
+            <Grid VerticalAlignment="Top"
+                  Height="40"
+                  Background="{StaticResource DarkGray}"
+                  Grid.ColumnSpan="2">
+
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="10 0 0 0"
+                           Text="AmongTheFit"
+                           Foreground="White"
+                           FontSize="16"/>
+            </Grid>
+
+            <Border Width="20"
+                    Height="20"
+                    Grid.ColumnSpan="2"
+                    Panel.ZIndex="2"
+                    CornerRadius="10"
+                    Opacity="0"
+                    MouseEnter="Border_MouseEnter"
+                    MouseLeave="Border_MouseLeave">
+
+                <Border.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Width"
+                                                 From="{Binding RelativeSource={RelativeSource Self}, Path=Width}" To="{Binding ElementName=window, Path=Width}"
+                                                 Duration="0:0:0:15"
+                                                 BeginTime="0:0:0:0.5"/>
+
+                                <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                 From="{Binding RelativeSource={RelativeSource Self}, Path=Height}" To="{Binding ElementName=window, Path=Height}"
+                                                 Duration="0:0:0:15"
+                                                 BeginTime="0:0:0:0.5"/>
+
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 From="{Binding RelativeSource={RelativeSource Self}, Path=Opacity}" To="1"
+                                                 Duration="0:0:0:1"
+                                                 BeginTime="0:0:0:0.5"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Width"
+                                                 From="{Binding RelativeSource={RelativeSource Self}, Path=Width}" To="20"
+                                                 Duration="0:0:0:1"/>
+
+                                <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                 From="{Binding RelativeSource={RelativeSource Self}, Path=Height}" To="20"
+                                                 Duration="0:0:0:1"/>
+
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 From="{Binding RelativeSource={RelativeSource Self}, Path=Opacity}" To="0"
+                                                 Duration="0:0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Border.Triggers>
+
+                <Border.Background>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Image gif:ImageBehavior.AnimatedSource="C:\Users\Christopher\OneDrive\Desktop\among-us-twerk.gif"
+                                   Width="100"
+                                   Height="100"
+                                   Opacity="1">
+                            </Image>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Border.Background>
+            </Border>
+
+            <Grid x:Name="SidePanel"
+                  HorizontalAlignment="Left"
+                  Width="50"
+                  Background="{StaticResource DarkGray}"
+                  Grid.RowSpan="2">
+
+                <Border VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Width="120"
+                        Height="50"
+                        CornerRadius="10"
+                        Margin="55 0 0 0">
+
+                    <Border.Background>
+                        <ImageBrush ImageSource="C:\Users\Christopher\OneDrive\Desktop\logo1.jpg"/>
+                    </Border.Background>
+                </Border>
+
+                <StackPanel>
+                    <ToggleButton x:Name="SideBarToggle"
+                                  VerticalAlignment="Top"
+                                  HorizontalAlignment="Left"
+                                  Width="50"
+                                  Height="40"
+                                  BorderThickness="0"
+                                  Margin="0 0 0 0"
+                                  WindowChrome.IsHitTestVisibleInChrome="True"
+                                  Style="{StaticResource SidePanelMenuButton}">
+
+                        <ToggleButton.Triggers>
+                            <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="SidePanel"
+                                                         Storyboard.TargetProperty="Width"
+                                                         From="50" To="200"
+                                                         Duration="0:0:0:0.15"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="SidePanel"
+                                                         Storyboard.TargetProperty="Width"
+                                                         From="200" To="50"
+                                                         Duration="0:0:0:0.15"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ToggleButton.Triggers>
+
+                        <Path HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Data="M0,0 L15,0 M0,5 L15,5 M0,10 L15,10"
+                              Stroke="White">
+
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ToggleButton}, Path=IsChecked}"
+                                                     Value="True">
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect BlurRadius="10"
+                                                                      ShadowDepth="0"
+                                                                      Color="White"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                    </ToggleButton>
+
+                    <ToggleButton Foreground="White"
+                                  Width="200"
+                                  Height="40"
+                                  Margin="0 10 0 0"
+                                  Style="{StaticResource SidePanelButton}">
+
+                        <StackPanel Orientation="Horizontal"
+                                    Width="200"
+                                    HorizontalAlignment="Left">
+
+                            <Image Source="C:\Users\Christopher\OneDrive\Desktop\home_icon.png"
+                                   Width="30"
+                                   Margin="10 0 0 0"
+                                   RenderOptions.BitmapScalingMode="HighQuality">
+
+                                <Image.ToolTip>
+                                    <ToolTip Content="Übersicht"
+                                             Style="{StaticResource SidePanelToolTip}"/>
+                                </Image.ToolTip>
+                            </Image>
+
+                            <TextBlock Text="Übersicht"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       Margin="20 0 0 0"/>
+                        </StackPanel>
+                    </ToggleButton>
+
+                    <ListView x:Name="TrainingsplanListView"
+                              Height="230"
+                              Background="Transparent"
+                              Foreground="White"
+                              BorderBrush="White"
+                              BorderThickness="2"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              Margin="0 10 0 0">
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="FontSize" Value="16"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <Border Width="200"
+                                Height="40"
+                                Margin="2 0 0 0">
+
+                            <StackPanel Orientation="Horizontal"
+                                        Width="200"
+                                        HorizontalAlignment="Left">
+
+                                <Image Source="C:\Users\Christopher\OneDrive\Desktop\clipboard.png"
+                                       Width="30"
+                                       Margin="0 0 0 0"
+                                       RenderOptions.BitmapScalingMode="HighQuality">
+
+                                    <Image.ToolTip>
+                                        <ToolTip Content="Trainingspläne"
+                                                 Style="{StaticResource SidePanelToolTip}"/>
+                                    </Image.ToolTip>
+                                </Image>
+
+                                <TextBlock Text="Trainingspläne:"
+                                           FontSize="16"
+                                           Foreground="White"
+                                           VerticalAlignment="Center"
+                                           Margin="20 0 0 0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <ListViewItem Padding="0"
+                                      Height="40"
+                                      Margin="0 5 0 0">
+                            
+                            <local:HoverButton Width="200"
+                                               Height="30"
+                                               Background="Transparent"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               HorizontalContentAlignment="Left"
+                                               Style="{StaticResource RoundButton}"
+                                               Click="HoverButton_Click">
+
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Background="White"
+                                            CornerRadius="5"
+                                            Margin="6 0 0 0">
+
+                                        <Path Stroke="Black"
+                                              StrokeThickness="2"
+                                              Width="30"
+                                              Height="30"
+                                              Data="M15,15 Q0,15,15,15
+                                                    M15,15 Q30,15,15,15
+                                                    M15,15 Q15,30,15,15
+                                                    M15,15 Q15,0,15,15"/>
+                                    </Border>
+
+                                    <TextBlock Text="Hinzufügen"
+                                               FontSize="16"
+                                               VerticalAlignment="Center"
+                                               Margin="20 0 0 0"/>
+                                </StackPanel>
+                            </local:HoverButton>
+                        </ListViewItem>
+                    </ListView>
+
+                    <ToggleButton Foreground="White"
+                                  Width="200"
+                                  Height="40"
+                                  Margin="0 10 0 0"
+                                  Style="{StaticResource SidePanelButton}">
+
+                        <StackPanel Orientation="Horizontal"
+                                    Width="200"
+                                    HorizontalAlignment="Left">
+
+                            <Image Source="C:\Users\Christopher\OneDrive\Desktop\settings_icon.png"
+                                   Width="30"
+                                   Margin="10 0 0 0"
+                                   RenderOptions.BitmapScalingMode="HighQuality">
+
+                                <Image.ToolTip>
+                                    <ToolTip Content="Einstellungen"
+                                             Style="{StaticResource SidePanelToolTip}"/>
+                                </Image.ToolTip>
+                            </Image>
+
+                            <TextBlock Text="Einstellungen"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       Margin="20 0 0 0"/>
+                        </StackPanel>
+                    </ToggleButton>
+
+                    <ToggleButton Foreground="White"
+                                  Width="200"
+                                  Height="40"
+                                  Margin="0 10 0 0"
+                                  Style="{StaticResource SidePanelButton}">
+
+                        <StackPanel Orientation="Horizontal"
+                                    Width="200"
+                                    HorizontalAlignment="Left">
+
+                            <Image Source="C:\Users\Christopher\OneDrive\Desktop\user_icon.png"
+                                   Width="30"
+                                   Margin="10 0 0 0"
+                                   RenderOptions.BitmapScalingMode="HighQuality">
+
+                                <Image.ToolTip>
+                                    <ToolTip Content="Profil"
+                                             Style="{StaticResource SidePanelToolTip}"/>
+                                </Image.ToolTip>
+                            </Image>
+
+                            <TextBlock Text="Profil"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       Margin="20 0 0 0"/>
+                        </StackPanel>
+                    </ToggleButton>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Height="40"
+                        WindowChrome.IsHitTestVisibleInChrome="True"
+                        Grid.Column="1">
+
+                <local:HoverButton x:Name="MinimizeButton"
+                                   Content="__"
+                                   Width="40"
+                                   FontSize="14"
+                                   Style="{StaticResource BaseButton}"
+                                   Click="MinimizeButton_Click"/>
+
+                <local:HoverButton x:Name="MaximizeButton"
+                                   Content="❐"
+                                   Width="40"
+                                   FontSize="14"
+                                   Style="{StaticResource BaseButton}"
+                                   Click="MaximizeButton_Click"/>
+
+                <local:HoverButton x:Name="ExitButton"
+                                   Content="X"
+                                   Width="40"
+                                   FontSize="14"
+                                   Style="{StaticResource ExitButton}"
+                                   Click="ExitButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
